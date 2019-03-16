@@ -32,11 +32,22 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem systemItem="camera" id="GAZ-e0-2Cz"/>
-                        <barButtonItem systemItem="organize" id="njX-dl-GTf"/>
+                        <barButtonItem systemItem="camera" id="GAZ-e0-2Cz">
+                            <connections>
+                                <action selector="openCamera:" destination="BYZ-38-t0r" id="CtV-rg-QGf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="organize" id="njX-dl-GTf">
+                            <connections>
+                                <action selector="openImagesFolder:" destination="BYZ-38-t0r" id="95q-O0-hVX"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="8rb-R3-JsO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="yY7-Ba-En4" id="Q6d-OZ-7KG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
