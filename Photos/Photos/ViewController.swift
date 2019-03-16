@@ -19,6 +19,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Link has delegate statement in functions but moved to here and it seems to work
+        //to avoid having it multiple places
         imagePicker.delegate = self
     }
     
@@ -31,7 +33,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
             
             imagePicker.sourceType = .camera
-            present(imagePicker, animated: true, completion: nil)
+            
+            present(imagePicker, animated: true)
         }
         else {
             print("Camera not supported by this device")
@@ -39,27 +42,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    
     @IBAction func openImagesFolder(_ sender: Any) {
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
+            imagePicker.sourceType = .photoLibrary
+            
+            present(imagePicker, animated: true)
+        }
+        else {
             print("Can't open photo library")
             return
         }
-        
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true)
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+
+    //In example of link, we are accepting a string: any as an index for info so need to change that in params
+    //and also code when indexing info!
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        // get the image
-        guard let image = info[UIImagePickerControllerOriginalImage.] as? UIImage else {
-            return
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView.image = image
         }
         
-        // do something with it
-        imageView.image = image
+        dismiss(animated: true)
     }
 }
